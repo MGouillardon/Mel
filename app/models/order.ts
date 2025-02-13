@@ -2,7 +2,7 @@ import { BaseModel, column, belongsTo, hasMany, Belongs, HasMany } from '@adonis
 import { DateTime } from 'luxon'
 import User from './user'
 import OrderProduct from './order_product'
-import OrderStatus from '#enum/order_status'
+import OrderStatus from '#enums/order_status'
 
 export default class Order extends BaseModel {
   @column({ isPrimary: true })

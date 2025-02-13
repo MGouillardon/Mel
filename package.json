@@ -30,7 +30,7 @@
     "#tests/*": "./tests/*.js",
     "#start/*": "./start/*.js",
     "#config/*": "./config/*.js",
-    "#enum/*": "./app/enum/*.js",
+    "#enums/*": "./app/enums/*.js",
     "#types/*": "./app/types/*.js"
   },
   "devDependencies": {
