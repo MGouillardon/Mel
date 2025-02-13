@@ -9,10 +9,12 @@
 
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
+const ProductController = () => import('#controllers/product_controller')
 const HomeController = () => import('#controllers/home_controller')
 const SessionController = () => import('#controllers/Auth/session_controller')
 
 router.get('/', [HomeController])
+router.get('/', [ProductController, 'index'])
 
 router
   .group(() => {
