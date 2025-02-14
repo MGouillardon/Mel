@@ -1,8 +1,9 @@
-import { BaseModel, column, belongsTo, hasMany, Belongs, HasMany } from '@adonisjs/lucid/orm'
+import { BaseModel, column, belongsTo, hasMany } from '@adonisjs/lucid/orm'
+import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import { DateTime } from 'luxon'
-import User from './user'
-import OrderProduct from './order_product'
-import OrderStatus from '#enums/order_status'
+import User from '#models/user'
+import OrderProduct from '#models/order_product'
+import { OrderStatus } from '#enums/order_status'
 
 export default class Order extends BaseModel {
   @column({ isPrimary: true })
@@ -27,7 +28,7 @@ export default class Order extends BaseModel {
   declare updatedAt: DateTime
 
   @belongsTo(() => User)
-  declare user: Belongs<typeof User>
+  declare user: BelongsTo<typeof User>
 
   @hasMany(() => OrderProduct)
   declare orderProducts: HasMany<typeof OrderProduct>
