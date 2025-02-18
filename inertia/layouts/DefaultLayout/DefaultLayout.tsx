@@ -17,7 +17,7 @@ function DefaultLayout( children: React.ReactNode ) {
     <div className='flex flex-col min-h-screen'>
       <BackgroundLayout theme={theme} />
       <HeaderLayout theme={theme} setTheme={setTheme} />
-      <main className='flex flex-1'>
+      <main className='flex flex-1 flex-wrap'>
         {children}
       </main>
     </div>
