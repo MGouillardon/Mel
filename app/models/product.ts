@@ -24,19 +24,19 @@ export default class Product extends BaseModel {
     prepare: (value: string[]) => JSON.stringify(value),
     serialize: (value: string) => JSON.parse(value),
   })
-  declare flavor_profile: string[]
+  declare flavorProfile: string[]
 
   @column({
     prepare: (value: string[]) => JSON.stringify(value),
     serialize: (value: string) => JSON.parse(value),
   })
-  declare grind_option: string[]
+  declare grindOption: string[]
 
   @column()
-  declare roast_level: number
+  declare roastLevel: number
 
   @column()
-  declare image_url: string
+  declare imageUrl: string
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
