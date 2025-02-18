@@ -6,7 +6,7 @@ interface ThemeControllerProps {
 function ThemeControllerMobile({ theme, setTheme }: ThemeControllerProps) {
 
   const handleChangeTheme = () => {
-    const newTheme = theme === 'emerald' ? 'dim' : 'emerald';
+    const newTheme = theme === 'lemonade' ? 'coffee' : 'lemonade';
     setTheme(newTheme);
     document.documentElement.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
@@ -18,7 +18,7 @@ function ThemeControllerMobile({ theme, setTheme }: ThemeControllerProps) {
       <input 
         type="checkbox" 
         className="theme-controller"
-        checked={theme === 'dim'}
+        checked={theme === 'coffee'}
         onChange={handleChangeTheme}
         />
 

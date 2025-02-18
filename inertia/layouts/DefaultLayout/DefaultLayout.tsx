@@ -5,7 +5,7 @@ import BackgroundLayout from '../BackgroundLayout/BackgroundLayout';
 
 function DefaultLayout( children: React.ReactNode ) {
 
-  const initialTheme = useMemo(() => localStorage.getItem('theme') || 'emerald', []);
+  const initialTheme = useMemo(() => localStorage.getItem('theme') || 'lemonade', []);
   const [theme, setTheme] = useState(initialTheme);
 
   useEffect(() => {

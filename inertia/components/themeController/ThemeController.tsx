@@ -5,7 +5,7 @@ interface ThemeControllerProps {
 
 function ThemeController({ theme, setTheme }: ThemeControllerProps) {
   const handleChangeTheme = () => {
-    const newTheme = theme === 'emerald' ? 'dim' : 'emerald';
+    const newTheme = theme === 'lemonade' ? 'coffee' : 'lemonade';
     setTheme(newTheme);
     document.documentElement.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
@@ -30,7 +30,7 @@ function ThemeController({ theme, setTheme }: ThemeControllerProps) {
         </svg>
         <input
           type="checkbox"
-          checked={theme === 'dim'}
+          checked={theme === 'coffee'}
           onChange={handleChangeTheme}
           className="toggle"
         />
