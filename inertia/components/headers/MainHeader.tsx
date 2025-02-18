@@ -13,7 +13,7 @@ function HeaderLayout({ theme, setTheme }: HeaderLayoutProps) {
 
   return (
     <header>
-      <div className="navbar">
+      <div className="navbar bg-base-100 fixed top-0 z-50 shadow-sm">
         <div className="flex-1">
           <Link href="/" className="btn btn-ghost text-xl">Adonis JS</Link>
         </div>
