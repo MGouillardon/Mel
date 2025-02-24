@@ -4,7 +4,7 @@ import CoffeeBeans from './CoffeeBeans/CoffeBeans';
 
 function CardItem( {product}: {product:Product} ){
   return (
-    <div className="card bg-base-100 shadow-xl h-full max-w-96 md:max-w-none">
+    <div className="card bg-base-100 shadow-xl h-full max-w-96 md:max-w-none hover:bg-base-200 transition-all">
       <figure>
         <img
           src={product.imageUrl}
