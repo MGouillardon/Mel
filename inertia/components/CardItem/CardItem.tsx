@@ -24,7 +24,7 @@ function CardItem( {product}: {product:Product} ){
         <p>{product.description}</p>
         <div className="card-actions justify-end items-center">
           <p className='text-xl font-black'>{product.price} €</p>
-          <Link href='#' className="btn btn-accent">Buy Now</Link>
+          <Link href='#' className="btn btn-accent">Add to cart</Link>
         </div>
       </div>
     </div>
