@@ -14,7 +14,13 @@ const HomeController = () => import('#controllers/home_controller')
 const SessionController = () => import('#controllers/Auth/session_controller')
 
 router.get('/', [HomeController])
-router.get('/products', [ProductController, 'index'])
+
+router
+  .group(() => {
+    router.get('/', [ProductController, 'index'])
+    router.get('/:id', [ProductController, 'show'])
+  })
+  .prefix('/products')
 
 router
   .group(() => {
