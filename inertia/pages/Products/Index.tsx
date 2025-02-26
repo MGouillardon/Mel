@@ -5,7 +5,6 @@ import { Link } from '@inertiajs/react';
 function Index({ products }: { products: { data: Product[]; meta: { currentPage: number; previousPageUrl?: string; nextPageUrl?: string } } }) {
   const { data, meta } = products;
   return (
-    <>
     <div className='flex-1 min-h-screen flex flex-col justify-center m-auto max-w-7xl py-6 gap-6'>
       <div className='grid md:grid-cols-3 md:grid-rows-1 grid-rows-3 grid-cols-1 gap-4 content-center place-items-center mt-24'>
         {data.map((product: Product) => (
@@ -24,7 +23,6 @@ function Index({ products }: { products: { data: Product[]; meta: { currentPage:
         }
       </div>
     </div>
-    </>
   );
 };
 
