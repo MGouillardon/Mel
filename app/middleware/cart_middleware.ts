@@ -11,11 +11,11 @@ export default class CartMiddleware {
     if (inertia) {
       try {
         const cartSummary = this.cartService.getCartSummary({ session } as HttpContext)
+
         inertia.share({
           cart: cartSummary,
         })
       } catch (error) {
-        console.error('Error:', error)
         inertia.share({
           cart: {
             itemCount: 0,
