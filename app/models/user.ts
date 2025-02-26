@@ -31,6 +31,20 @@ export default class User extends compose(BaseModel, AuthFinder) {
   @column()
   declare role: Roles.CLIENT | Roles.ADMIN
 
+  @column()
+  declare address: string | null
+
+  @column()
+  declare city: string | null
+
+  @column()
+  declare postalCode: string | null
+
+  @column()
+  declare country: string | null
+
+  @column()
+  declare phoneNumber: string | null
   static rememberMeTokens = DbRememberMeTokensProvider.forModel(User)
 
   @column.dateTime({ autoCreate: true })
