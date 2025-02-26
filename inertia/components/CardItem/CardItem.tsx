@@ -1,6 +1,6 @@
 import { Link } from '@inertiajs/react';
 import type { Product } from '#types/product';
-import CoffeeBeans from './CoffeeBeans/CoffeBeans';
+import CoffeeBeans from './CoffeeBeans/CoffeeBeans';
 
 function CardItem( {product}: {product:Product} ){
   return (
