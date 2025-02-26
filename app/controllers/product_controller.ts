@@ -15,4 +15,11 @@ export default class ProductController {
       },
     })
   }
+
+  async show({ inertia, params }: HttpContext) {
+    const product = await Product.findOrFail(params.id)
+    return inertia.render('Products/Show', {
+      product,
+    })
+  }
 }
