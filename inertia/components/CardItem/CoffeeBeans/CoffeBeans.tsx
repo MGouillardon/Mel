@@ -22,7 +22,7 @@ const CoffeeBeans: React.FC<CoffeeBeansProps> = ({ value }) => {
   }, [value, themeColor]);
 
   return (
-    <div className='flex justify-start gap-1'>
+    <div className='flex-1 flex justify-start gap-1'>
       {beans}
     </div>
   );
