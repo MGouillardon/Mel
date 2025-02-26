@@ -13,13 +13,14 @@ export default class SessionController {
     try {
       const user = await User.verifyCredentials(email, password)
       await auth.use('web').login(user, !!request.input('remember_me'))
-      session.flash({ success: 'You are logged in.' })
 
-      return response.redirect('/')
+      const redirectUrl = session.pull('redirect_after_login') || '/'
+
+      session.flash({ success: 'You are logged in.' })
+      return response.redirect(redirectUrl)
     } catch (errors) {
       console.error('Login error:', errors)
       session.flash({ errors: 'Incorrect credentials.' })
-
       return response.redirect('/login')
     }
   }
@@ -29,19 +30,20 @@ export default class SessionController {
   }
 
   async register({ request, auth, response, session }: HttpContext) {
-    const { email, password, password_confirmation, firstName, lastName } = await request.validateUsing(registerValidator);
+    const { email, password, password_confirmation, firstName, lastName } =
+      await request.validateUsing(registerValidator)
     try {
-      const user = await User.create({ email, password, firstName, lastName });
-      await auth.use('web').login(user);
-      session.flash({ success: 'You are registered and logged in.' });
-      return response.redirect('/');
+      const user = await User.create({ email, password, firstName, lastName })
+      await auth.use('web').login(user)
+      session.flash({ success: 'You are registered and logged in.' })
+      return response.redirect('/')
     } catch (errors) {
-      console.error('Register error:', errors);
-      session.flash({ errors: 'There was a problem registering your account.' });
-      return response.redirect('/register');
+      console.error('Register error:', errors)
+      session.flash({ errors: 'There was a problem registering your account.' })
+      return response.redirect('/register')
     }
   }
-  
+
   async logout({ auth, response, session }: HttpContext) {
     await auth.use('web').logout()
     session.flash({ success: 'You have been logged out.' })
