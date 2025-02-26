@@ -4,6 +4,7 @@ const ProductController = () => import('#controllers/product_controller')
 const HomeController = () => import('#controllers/home_controller')
 const SessionController = () => import('#controllers/Auth/session_controller')
 const CartController = () => import('#controllers/cart_controller')
+const CheckoutController = () => import('#controllers/checkout_controller')
 
 router.get('/', [HomeController])
 
@@ -23,6 +24,16 @@ router
     router.delete('/', [CartController, 'clear'])
   })
   .prefix('/cart')
+
+router
+  .group(() => {
+    router.get('/', [CheckoutController, 'index'])
+    router.post('/address', [CheckoutController, 'updateAddress'])
+    router.post('/process', [CheckoutController, 'processOrder'])
+    router.get('/confirmation/:id', [CheckoutController, 'confirmation'])
+  })
+  .prefix('/checkout')
+  .use(middleware.auth())
 
 router
   .group(() => {
