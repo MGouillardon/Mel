@@ -4,19 +4,38 @@ import { DateTime } from 'luxon'
 import { Cart, CartWithProducts, CartProductItem } from '#types/cart'
 
 const CART_SESSION_KEY = 'cart'
+const CART_EXPIRY_DAYS = 7
 
 export default class CartService {
+  private createNewCart(ctx: HttpContext): Cart {
+    const cart: Cart = {
+      items: [],
+      lastUpdated: DateTime.now(),
+    }
+    ctx.session.put(CART_SESSION_KEY, cart)
+    return cart
+  }
+
   private initCart(ctx: HttpContext): Cart {
     if (!ctx.session.has(CART_SESSION_KEY)) {
-      const cart: Cart = {
-        items: [],
-        lastUpdated: DateTime.now(),
-      }
-      ctx.session.put(CART_SESSION_KEY, cart)
-      return cart
+      return this.createNewCart(ctx)
     }
 
-    return ctx.session.get(CART_SESSION_KEY)
+    const cart = ctx.session.get(CART_SESSION_KEY)
+
+    if (cart.lastUpdated) {
+      const lastUpdatedDate =
+        typeof cart.lastUpdated === 'string' ? DateTime.fromISO(cart.lastUpdated) : cart.lastUpdated
+
+      if (DateTime.now().diff(lastUpdatedDate, 'days').days > CART_EXPIRY_DAYS) {
+        return this.createNewCart(ctx)
+      }
+    } else {
+      cart.lastUpdated = DateTime.now()
+      this.saveCart(ctx, cart)
+    }
+
+    return cart
   }
 
   private saveCart(ctx: HttpContext, cart: Cart): void {
@@ -72,13 +91,7 @@ export default class CartService {
   }
 
   clearCart(ctx: HttpContext): Cart {
-    const cart: Cart = {
-      items: [],
-      lastUpdated: DateTime.now(),
-    }
-
-    this.saveCart(ctx, cart)
-    return cart
+    return this.createNewCart(ctx)
   }
 
   async getCartWithProducts(ctx: HttpContext): Promise<CartWithProducts> {
