@@ -24,18 +24,18 @@ export default class CartController {
     try {
       const { productId, quantity = 1, redirectTo = null } = request.body()
 
-      if (!productId || typeof Number.parseInt(productId) !== 'number') {
+      if (!productId || Number.isNaN(Number(productId))) {
         session.flash('error', 'Valid productId is required')
         return response.redirect().back()
       }
 
       await this.cartService.addItem(
         { session } as HttpContext,
-        Number.parseInt(productId),
-        Number.parseInt(quantity)
+        Number(productId),
+        Number(quantity) || 1
       )
-      session.flash('success', 'Product added to cart')
 
+      session.flash('success', 'Product added to cart')
       return redirectTo ? response.redirect(redirectTo) : response.redirect().back()
     } catch (error) {
       session.flash('error', 'Failed to add item to cart')
@@ -45,19 +45,16 @@ export default class CartController {
 
   async update({ params, request, response, session }: HttpContext) {
     try {
-      const productId = Number.parseInt(params.id, 10)
+      const productId = Number(params.id)
       const { quantity } = request.body()
 
-      if (Number.isNaN(productId) || !quantity || Number.isNaN(Number.parseInt(quantity))) {
+      if (Number.isNaN(productId) || !quantity || Number.isNaN(Number(quantity))) {
         session.flash('error', 'Valid productId and quantity are required')
         return response.redirect().back()
       }
 
-      this.cartService.updateItemQuantity(
-        { session } as HttpContext,
-        productId,
-        Number.parseInt(quantity)
-      )
+      this.cartService.updateItemQuantity({ session } as HttpContext, productId, Number(quantity))
+
       session.flash('success', 'Cart updated')
       return response.redirect().back()
     } catch (error) {
@@ -68,7 +65,7 @@ export default class CartController {
 
   async destroy({ params, response, session }: HttpContext) {
     try {
-      const productId = Number.parseInt(params.id, 10)
+      const productId = Number(params.id)
 
       if (Number.isNaN(productId)) {
         session.flash('error', 'Valid productId is required')
